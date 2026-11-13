@@ -1,0 +1,98 @@
+/* Define los colores y la tipografía de la página */
+:root {
+    font-family: Arial, sans-serif;
+    color: #20302b;
+    background: #edf5ef;
+}
+
+/* Centra el contenido y limita su ancho */
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 16px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* Organiza el contenido principal */
+main {
+    width: min(100%, 520px);
+    text-align: center;
+}
+
+/* Da espacio debajo del título */
+h1 {
+    margin: 0 0 24px;
+    color: #176b4d;
+}
+
+/* Acomoda el campo y los botones */
+.controles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+/* Estiliza el campo de búsqueda */
+input {
+    flex: 1 1 200px;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #b8c9bf;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+/* Aplica el estilo base a los botones */
+button {
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 8px;
+    background: #176b4d;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* Oscurece el botón al pasar el puntero */
+button:hover {
+    background: #10543b;
+}
+
+/* Da un color distinto al botón aleatorio */
+.boton-secundario {
+    background: #526b60;
+}
+
+/* Reserva espacio para mensajes de búsqueda o error */
+#mensaje {
+    min-height: 24px;
+    color: #526b60;
+}
+
+/* Da apariencia de tarjeta al personaje */
+.tarjeta {
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 14px;
+    background: white;
+    box-shadow: 0 8px 24px #20302b1a;
+}
+
+/* Ajusta el tamaño de la imagen */
+.tarjeta img {
+    width: min(100%, 300px);
+    border-radius: 10px;
+}
+
+/* Espacia el nombre del personaje */
+.tarjeta h2 {
+    margin-bottom: 8px;
+}
+
+/* Ajusta los márgenes de especie y estado */
+.tarjeta p {
+    margin: 8px 0;
+}

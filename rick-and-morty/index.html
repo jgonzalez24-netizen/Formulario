@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Buscador de personajes</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main>
+        <h1>Personajes de Rick y Morty</h1>
+
+        <div class="controles">
+            <input
+                type="text"
+                id="nombre"
+                placeholder="Escribe el nombre de un personaje"
+            >
+
+            <button onclick="buscarPorNombre()">Buscar por el nombre</button>
+
+            <button onclick="buscarAleatorio()" class="boton-secundario"> Personaje Aleatorio</button>
+        </div>
+
+        <p id="mensaje">Busca un personaje por nombre o al azar.</p>
+
+        <div id="contenedor"></div>
+    </main>
+
+    <script>
+        function mostrarPersonaje(datos)
+        {
+            let estado = datos.status;
+
+            if (estado == "Alive")
+            {
+                estado = "Vivo";
+            }
+            else if (estado == "Dead")
+            {
+                estado = "Muerto";
+            }
+            else
+            {
+                estado = "Desconocido";
+            }
+
+            let code = '<div class="tarjeta">';
+            code += '<img src="' + datos.image + '" alt="Imagen de ' + datos.name + '">';
+            code += '<h2>' + datos.name + '</h2>';
+            code += '<p>Especie: ' + datos.species + '</p>';
+            code += '<p>Estado: ' + estado + '</p>';
+            code += '</div>';
+
+            document.getElementById("contenedor").innerHTML = code;
+            document.getElementById("mensaje").innerHTML = "";
+        }
+
+        function mostrarError()
+        {
+            document.getElementById("contenedor").innerHTML = "";
+            document.getElementById("mensaje").innerHTML ="Personaje no encontrado. Intenta de nuevo.";
+        }
+
+        function buscarPorNombre()
+        {
+            let nombre = document.getElementById("nombre").value.trim();
+
+            if (nombre == "")
+            {
+                document.getElementById("mensaje").innerHTML ="Escribe el nombre de un personaje.";
+                document.getElementById("contenedor").innerHTML = "";
+                return;
+            }
+
+            fetch("https://rickandmortyapi.com/api/character/?name=" + encodeURIComponent(nombre))
+                .then(respuesta => respuesta.json())
+                .then(datos => {
+                    if (datos.results && datos.results.length > 0)
+                    {
+                        mostrarPersonaje(datos.results[0]);
+                    }
+                    else
+                    {
+                        mostrarError();
+                    }
+                })
+                .catch(error => {
+                    mostrarError();
+                    console.log("Error:", error);
+                });
+        }
+
+        function buscarAleatorio()
+        {
+            let target = Math.floor(Math.random() * 826) + 1;
+
+            fetch("https://rickandmortyapi.com/api/character/" + target)
+                .then(respuesta => respuesta.json())
+                .then(datos => {
+                    mostrarPersonaje(datos);
+                })
+                .catch(error => {
+                    mostrarError();
+                    console.log("Error:", error);
+                });
+        }
+    </script>
+</body>
+</html>
